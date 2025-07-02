@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Android;
 public class NPC : MonoBehaviour
 {
     
@@ -14,9 +15,10 @@ public class NPC : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
     public string[] backupdialogue;
-
+    Coroutine typingCoroutine;
     void Start()
     {
+
         backupdialogue = dialogue;
     }
 
@@ -30,7 +32,15 @@ public class NPC : MonoBehaviour
             } else
             {
                 dialoguePanel.SetActive(true);
-                StartCoroutine(Typing());
+                Dia.text = "";
+                index = 0;
+
+                if (typingCoroutine != null)
+                {
+                    StopCoroutine(typingCoroutine);
+                }
+
+                typingCoroutine = StartCoroutine(Typing());
             }
         }
         if (Dia.text == dialogue[index])
@@ -60,11 +70,18 @@ public class NPC : MonoBehaviour
     {
         Movement s2 = MC.GetComponent<Movement>();
 
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
         if (s2.activeSword)
         {
-            System.Array.Resize(ref dialogue, 1);
-            dialogue[0] = "AHH, Put that sword away!";
-            zeroText();
+            dialogue = new string[] { "AHH, Put that sword away" };
+            index = 0;
+            Dia.text = "";
+            typingCoroutine = StartCoroutine(Typing());
         }
         else
         {

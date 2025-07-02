@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Movement : MonoBehaviour
     public float SpeedLeft;
     public float SpeedDown;
     public float SpeedRight;
+    public GameObject stats;
+    public bool statsOpen;
     bool up;
     bool down;
     bool left;
@@ -26,6 +29,7 @@ public class Movement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        stats.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().sprite = FrontSprite;
         rb2d = GetComponent<Rigidbody2D>();
         SwordLeft.SetActive(false);
@@ -114,6 +118,23 @@ public class Movement : MonoBehaviour
             down = false;
             up = true;
             right = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!statsOpen)
+            {
+                stats.SetActive(true);
+                statsOpen = true;
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                
+                stats.SetActive(false);
+                statsOpen = false;
+                Time.timeScale = 1f;
+
+            }
         }
     }
 
