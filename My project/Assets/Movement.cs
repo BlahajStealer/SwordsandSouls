@@ -1,4 +1,3 @@
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -17,7 +16,8 @@ public class Movement : MonoBehaviour
     bool down;
     bool left;
     bool right;
-    private bool activeSword;
+    public bool activeSword;
+    public int Health;
     [SerializeField] Sprite BackSprite;
     [SerializeField] Sprite FrontSprite;
     [SerializeField] Sprite RightSprite;
@@ -36,6 +36,7 @@ public class Movement : MonoBehaviour
         down = false;
         up = false;
         right = false;
+        
     }
 
     // Update is called once per frame
