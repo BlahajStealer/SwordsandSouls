@@ -76,7 +76,7 @@ public class NPC : MonoBehaviour
             typingCoroutine = null;
         }
 
-        if (s2.activeSword)
+        if (s2.activeSword && gameObject.tag == "NPC")
         {
             dialogue = new string[] { "AHH, Put that sword away" };
             index = 0;
